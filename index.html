@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>THE FORGE X – Engineering the Future</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Inter',sans-serif;
+    }
+
+    html{
+      scroll-behavior: smooth;
+    }
+
+    body{
+      background: linear-gradient(135deg, #0a0e1a 0%, #1a0f2e 50%, #0f0a1f 100%);
+      color:#eaeaff;
+      line-height:1.6;
+      position: relative;
+      overflow-x: hidden;
+      text-align: justify;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(181,110,255,0.05) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(181,110,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,110,180,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(181,110,255,0.08) 0%, transparent 50%);
+      animation: pulse 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Navbar */
+    header{
+      position:fixed;
+      top:0;
+      width:100%;
+      background:rgba(10,14,26,0.4);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      padding:15px 50px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:1000;
+      border-bottom: 1px solid rgba(181,110,255,0.3);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    header h1{
+      color:#b56eff;
+      font-size:26px;
+      letter-spacing:3px;
+      text-shadow: 0 0 20px rgba(181,110,255,0.6), 0 0 40px rgba(255,110,180,0.4);
+      font-weight: 900;
+      background: linear-gradient(135deg, #b56eff 0%, #ff6eb4 50%, #b56eff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      -webkit-text-stroke: 0.5px rgba(181,110,255,0.8);
+      animation: glitchTitle 5s infinite;
+    }
+
+    @keyframes glitchTitle {
+      0%, 90%, 100% { transform: translate(0); }
+      92% { transform: translate(-2px, 2px); text-shadow: 2px 0 #b56eff, -2px 0 #ff6eb4; }
+      94% { transform: translate(2px, -2px); text-shadow: -2px 0 #ff6eb4, 2px 0 #b56eff; }
+    }
+
+    nav a{
+      color:#eaeaff;
+      text-decoration:none;
+      margin-left:30px;
+      font-weight:700;
+      position: relative;
+      padding: 8px 15px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(181,110,255,0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    nav a:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #b56eff, #ff6eb4);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 80%;
+    }
+
+    nav a:hover{
+      color:#b56eff;
+      background: rgba(181,110,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    nav a:active {
+      transform: scale(0.95);
+    }
+
+    nav a.active {
+      background: rgba(181,110,255,0.2);
+      color: #b56eff;
+      box-shadow: 0 0 20px rgba(181,110,255,0.4);
+    }
+
+    /* Hero */
+    .hero{
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:0 20px;
+      background:radial-gradient(circle at top,#1a0f35,#0a0e1a 70%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 30% 30%, rgba(181,110,255,0.15) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(255,110,180,0.15) 0%, transparent 40%);
+      animation: float 10s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, 20px); }
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(181,110,255,0.2) 0%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      animation: breathe 6s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #b56eff;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: particleFloat 3s infinite;
+      box-shadow: 0 0 10px #b56eff;
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(var(--x-drift, 0)) scale(0);
+        opacity: 0;
+      }
+    }
+
+    .hero h2{
+      font-size:48px;
+      margin-bottom:15px;
+      background: linear-gradient(135deg, #b56eff 0%, #ff6eb4 50%, #b56eff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% auto;
+      text-shadow: 0 0 40px rgba(181,110,255,0.4);
+      position: relative;
+      z-index: 1;
+      animation: shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    .hero p{
+      font-size:18px;
+      max-width:700px;
+      margin:auto;
+      opacity:0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Sections */
+    section{
+      padding:80px 10%;
+      position: relative;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    section:nth-child(2) { animation-delay: 0.1s; }
+    section:nth-child(3) { animation-delay: 0.2s; }
+    section:nth-child(4) { animation-delay: 0.3s; }
+    section:nth-child(5) { animation-delay: 0.4s; }
+    section:nth-child(6) { animation-delay: 0.5s; }
+    section:nth-child(7) { animation-delay: 0.6s; }
+
+    section h3{
+      font-size:32px;
+      margin-bottom:40px;
+      background: linear-gradient(90deg, #b56eff, #ff6eb4, #b56eff, #ff6eb4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% auto;
+      text-align:center;
+      text-shadow: 0 0 30px rgba(181,110,255,0.5);
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: rainbowText 3s linear infinite;
+    }
+
+    @keyframes rainbowText {
+      to { background-position: 200% center; }
+    }
+
+    section h3::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #b56eff, #ff6eb4, transparent);
+      animation: expandLine 2s ease-in-out infinite;
+    }
+
+    @keyframes expandLine {
+      0%, 100% { width: 60px; opacity: 0.5; }
+      50% { width: 100px; opacity: 1; }
+    }
+
+    /* Grid Cards */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:30px;
+    }
+
+    .grid .card{
+      animation: slideInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .grid .card:nth-child(1) { animation-delay: 0.1s; }
+    .grid .card:nth-child(2) { animation-delay: 0.2s; }
+    .grid .card:nth-child(3) { animation-delay: 0.3s; }
+    .grid .card:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card{
+      background: rgba(18,26,51,0.4);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      padding:30px;
+      border-radius:16px;
+      border: 1px solid rgba(181,110,255,0.3);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transition:transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #b56eff, #ff6eb4, #b56eff, #ff6eb4);
+      background-size: 300% 300%;
+      border-radius: 16px;
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.4s ease;
+      animation: gradientShift 4s ease infinite, neonPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes neonPulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.5); }
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover{
+      transform:translateY(-15px) scale(1.05) rotateX(5deg) rotateY(5deg);
+      box-shadow:0 0 60px rgba(181,110,255,0.9), 0 30px 80px rgba(0,0,0,0.7), inset 0 0 30px rgba(181,110,255,0.2);
+      border-color: transparent;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card h4{
+      margin-bottom:12px;
+      color:#fff;
+      font-size:20px;
+    }
+
+    .card span{
+      color:#b56eff;
+      font-weight:600;
+      font-size:14px;
+    }
+
+    .card p{
+      font-size:15px;
+      opacity:0.9;
+      margin-top:10px;
+    }
+
+    /* Founder Cards */
+    .founder-card{
+      background: rgba(18,26,51,0.4);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      padding:30px;
+      border-radius:16px;
+      border: 1px solid rgba(181,110,255,0.3);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transition:transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      text-align:center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .founder-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(181,110,255,0.2) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .founder-card:hover::after {
+      opacity: 1;
+    }
+
+    .founder-card:hover{
+      transform:translateY(-15px) scale(1.05);
+      box-shadow:0 0 50px rgba(181,110,255,0.7), 0 25px 70px rgba(0,0,0,0.6);
+      border-color: rgba(181,110,255,0.7);
+    }
+
+    .founder-img{
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      background: linear-gradient(135deg, rgba(181,110,255,0.3), rgba(255,110,180,0.2));
+      border: 3px solid rgba(181,110,255,0.5);
+      margin: 0 auto 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:50px;
+      color:rgba(181,110,255,0.6);
+      box-shadow: 0 0 30px rgba(181,110,255,0.3);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+    }
+
+    .founder-card:hover .founder-img {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 50px rgba(181,110,255,0.6);
+    }
+
+    .founder-card h4{
+      margin-bottom:8px;
+      color:#b56eff;
+      font-size:22px;
+      font-weight:600;
+    }
+
+    .founder-card p{
+      font-size:14px;
+      opacity:0.8;
+      color:#fff;
+    }
+
+    /* Join Button */
+    .join-btn{
+      display:inline-block;
+      padding:15px 40px;
+      margin-top:30px;
+      background: linear-gradient(135deg, #b56eff, #ff6eb4);
+      color:#fff;
+      text-decoration:none;
+      border-radius:50px;
+      font-weight:700;
+      font-size:18px;
+      border: 2px solid rgba(181,110,255,0.5);
+      box-shadow: 0 8px 32px rgba(181,110,255,0.4);
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .join-btn:hover{
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(181,110,255,0.7);
+      background: linear-gradient(135deg, #ff6eb4, #b56eff);
+    }
+
+    /* Application Form */
+    .application-form{
+      max-width:600px;
+      margin:40px auto;
+      background: rgba(18,26,51,0.4);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      padding:40px;
+      border-radius:16px;
+      border: 1px solid rgba(181,110,255,0.3);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    .form-group{
+      margin-bottom:25px;
+    }
+
+    .form-group label{
+      display:block;
+      margin-bottom:8px;
+      color:#b56eff;
+      font-weight:600;
+      font-size:14px;
+    }
+
+    .form-group input,
+    .form-group textarea{
+      width:100%;
+      padding:12px 15px;
+      background:rgba(10,14,26,0.6);
+      border:1px solid rgba(181,110,255,0.3);
+      border-radius:8px;
+      color:#eaeaff;
+      font-size:15px;
+      font-family:'Inter',sans-serif;
+      transition: all 0.3s;
+      box-sizing:border-box;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus{
+      outline:none;
+      border-color:rgba(181,110,255,0.7);
+      box-shadow: 0 0 20px rgba(181,110,255,0.3);
+    }
+
+    .form-group textarea{
+      resize:vertical;
+      min-height:100px;
+    }
+
+    .submit-btn{
+      width:100%;
+      padding:15px;
+      background: linear-gradient(135deg, #b56eff, #ff6eb4);
+      color:#fff;
+      border:none;
+      border-radius:50px;
+      font-weight:700;
+      font-size:16px;
+      cursor:pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing:1px;
+      box-shadow: 0 8px 32px rgba(181,110,255,0.4);
+    }
+
+    .submit-btn:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 15px 50px rgba(181,110,255,0.7);
+      background: linear-gradient(135deg, #ff6eb4, #b56eff);
+    }
+
+    .success-message{
+      display:none;
+      text-align:center;
+      padding:20px;
+      background:rgba(16,240,149,0.1);
+      border:1px solid rgba(16,240,149,0.3);
+      border-radius:8px;
+      color:#10f095;
+      margin-top:20px;
+    }
+
+    /* Footer */
+    footer{
+      text-align:center;
+      padding:30px;
+      background:rgba(6,9,19,0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(181,110,255,0.3);
+      font-size:14px;
+      opacity:0.8;
+    }
+    .brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.brand img{
+  width:48px;
+  height:auto;
+  filter: drop-shadow(0 0 12px rgba(181,110,255,0.6));
+  transition: transform 0.3s ease;
+}
+
+.brand img:hover{
+  transform: scale(1.1) rotate(-2deg);
+}
+/* ===== LOADING SCREEN ===== */
+#loader{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:radial-gradient(circle at center, #1a0f35, #0a0e1a 70%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  transition:opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-content{
+  text-align:center;
+  animation:fadeIn 1.2s ease;
+}
+
+.loader-content img{
+  width:120px;
+  margin-bottom:20px;
+  filter:drop-shadow(0 0 25px rgba(181,110,255,0.8));
+  animation:pulseLogo 2s infinite ease-in-out;
+}
+
+.loader-content h2{
+  font-size:32px;
+  letter-spacing:4px;
+  background:linear-gradient(135deg,#b56eff,#ff6eb4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:8px;
+}
+
+.loader-content p{
+  font-size:14px;
+  opacity:0.8;
+  margin-bottom:25px;
+}
+
+/* Loading bar */
+.loader-bar{
+  width:220px;
+  height:4px;
+  background:rgba(181,110,255,0.2);
+  border-radius:50px;
+  overflow:hidden;
+  margin:auto;
+}
+
+.loader-bar span{
+  display:block;
+  height:100%;
+  width:40%;
+  background:linear-gradient(90deg,#b56eff,#ff6eb4);
+  animation:loadingBar 1.5s infinite;
+  border-radius:50px;
+}
+
+/* Animations */
+@keyframes loadingBar{
+  0%{transform:translateX(-100%);}
+  100%{transform:translateX(300%);}
+}
+
+@keyframes pulseLogo{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(15px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+
+  </style>
+</head>
+
+<body>
+  
+<!-- Loading Screen -->
+<div id="loader">
+  <div class="loader-content">
+    <img src="logo.jpeg" alt="THE FORGE X Logo">
+    <h2>THE FORGE X</h2>
+    <p>Innovate • Build • Advance</p>
+    <div class="loader-bar">
+      <span></span>
+    </div>
+  </div>
+</div>
+
+
+<header>
+  <div class="brand">
+  <img src="logo.jpeg" alt="THE FORGE X Logo">
+
+  <h1>THE FORGE X</h1>
+</div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#inventions">Inventions</a>
+    <a href="#events">Events</a>
+    <a href="#stages">Stages</a>
+    <a href="#vision">Vision</a>
+    <a href="#founders">Founders</a>
+    <a href="#join">Join Us</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div style="max-width:900px; margin:0 auto; padding:0 20px;">
+    <h2 style="margin-bottom:20px;">Engineering Tomorrow</h2>
+    <p style="text-align:justify; max-width:850px; margin:0 auto; line-height:1.8;">
+      THE FORGE X is an innovation-driven company where brilliant minds converge to forge 
+      breakthrough technologies. We don't just imagine the future—we build it, one revolutionary 
+      invention at a time. From AI-powered environmental systems to autonomous energy grids, 
+      we're reshaping industries and creating solutions for humanity's greatest challenges.
+    </p>
+  </div>
+</section>
+
+<section style="padding:60px 10%; background:rgba(18,26,51,0.3);">
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:40px; text-align:center;">
+    <div>
+      <h2 style="font-size:48px; color:#b56eff; margin-bottom:10px; text-shadow: 0 0 30px rgba(181,110,255,0.5);">3+</h2>
+      <p style="font-size:16px; opacity:0.9;">Active Projects</p>
+    </div>
+    <div>
+      <h2 style="font-size:48px; color:#ff6eb4; margin-bottom:10px; text-shadow: 0 0 30px rgba(255,110,180,0.5);">4</h2>
+      <p style="font-size:16px; opacity:0.9;">Founding Members</p>
+    </div>
+    <div>
+      <h2 style="font-size:48px; color:#b56eff; margin-bottom:10px; text-shadow: 0 0 30px rgba(181,110,255,0.5);">100%</h2>
+      <p style="font-size:16px; opacity:0.9;">Innovation Focused</p>
+    </div>
+    <div>
+      <h2 style="font-size:48px; color:#ff6eb4; margin-bottom:10px; text-shadow: 0 0 30px rgba(255,110,180,0.5);">2026</h2>
+      <p style="font-size:16px; opacity:0.9;">Year Founded</p>
+    </div>
+  </div>
+</section>
+
+<section id="inventions">
+  <h3>Our Inventions</h3>
+  <div class="grid">
+    <div class="card">
+      <h4>🌍 Smart Environmental Core</h4>
+      <p>
+        An advanced AI-powered system that monitors air quality, climate patterns, and environmental 
+        hazards in real-time. Utilizing machine learning algorithms and IoT sensor networks, it predicts 
+        pollution spikes and provides actionable insights for cities and industries to reduce their 
+        environmental footprint by up to 40%.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>⚡ Autonomous Energy Grid</h4>
+      <p>
+        Revolutionary self-optimizing energy infrastructure that dynamically balances power distribution 
+        using predictive analytics. Integrates renewable energy sources seamlessly, reduces waste by 35%, 
+        and ensures 99.9% uptime. The future of sustainable, intelligent power management.
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>🤖 Forge AI Engine</h4>
+      <p>
+        Our proprietary artificial intelligence platform designed for high-precision engineering decisions. 
+        Processes complex datasets 10x faster than traditional systems, identifies optimization opportunities, 
+        and assists engineers in creating next-generation solutions with unprecedented accuracy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="events" style="background:rgba(18,26,51,0.2);">
+  <h3>Upcoming Events & Workshops</h3>
+  <p style="text-align:justify; max-width:900px; margin:0 auto 40px auto;">
+    Stay connected with The Forge X through our exciting lineup of events, workshops, and innovation sessions. 
+    Join us to learn, network, and be part of the future we're building together.
+  </p>
+  <div class="grid">
+    <div class="card">
+      <span style="background:rgba(181,110,255,0.2); padding:5px 12px; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:15px;">📅 Coming Soon</span>
+      <h4>Innovation Summit 2026</h4>
+      <p style="margin-bottom:10px; color:#b56eff; font-weight:600;">Q2 2026</p>
+      <p>
+        Join industry leaders, innovators, and tech enthusiasts for a full-day summit exploring 
+        the future of AI, sustainable energy, and environmental technology. Keynote speakers, 
+        panel discussions, and networking opportunities.
+      </p>
+    </div>
+
+    <div class="card">
+      <span style="background:rgba(255,110,180,0.2); padding:5px 12px; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:15px;">🎓 Workshop</span>
+      <h4>AI & Machine Learning Bootcamp</h4>
+      <p style="margin-bottom:10px; color:#ff6eb4; font-weight:600;">March 2026</p>
+      <p>
+        Hands-on workshop for students and professionals interested in AI development. 
+        Learn from our engineering team, work on real projects, and gain practical skills 
+        in machine learning and data science.
+      </p>
+    </div>
+
+    <div class="card">
+      <span style="background:rgba(181,110,255,0.2); padding:5px 12px; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:15px;">🚀 Launch Event</span>
+      <h4>Product Demo Day</h4>
+      <p style="margin-bottom:10px; color:#b56eff; font-weight:600;">April 2026</p>
+      <p>
+        Exclusive first look at our Smart Environmental Core and Autonomous Energy Grid prototypes. 
+        Live demonstrations, Q&A sessions with founders, and opportunities for early partnerships.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="stages">
+  <h3>Company Stages</h3>
+  <div class="grid">
+
+    <div class="card">
+      <span>Stage 01</span>
+      <h4>Research & Development</h4>
+      <p>
+        This is the foundation of THE FORGE X. Our R&D team focuses on deep research,
+        prototyping, testing, and innovation to create breakthrough technologies.
+      </p>
+    </div>
+
+    <div class="card">
+      <span>Stage 02</span>
+      <h4>Marketing & Sales</h4>
+      <p>
+        This stage converts innovation into impact by positioning products,
+        reaching global markets, building brand value, and driving revenue.
+      </p>
+    </div>
+
+    <div class="card">
+      <span>Stage 03</span>
+      <h4>Finance</h4>
+      <p>
+        The finance team ensures sustainability through investment planning,
+        budgeting, risk management, and long-term financial growth.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section style="background:rgba(18,26,51,0.15);">
+  <h3>Latest News & Updates</h3>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
+    <div class="card">
+      <span style="font-size:12px; opacity:0.7;">Jan 10, 2026</span>
+      <h4 style="margin-top:10px;">🎉 The Forge X Officially Launches</h4>
+      <p>
+        We're thrilled to announce the official launch of The Forge X! After months of planning 
+        and preparation, our team is ready to revolutionize the tech industry with innovative solutions.
+      </p>
+      <a href="#" style="color:#b56eff; font-size:14px; font-weight:600; text-decoration:none; margin-top:15px; display:inline-block;">Read More →</a>
+    </div>
+
+    <div class="card">
+      <span style="font-size:12px; opacity:0.7;">Jan 8, 2026</span>
+      <h4 style="margin-top:10px;">💡 Smart Environmental Core - Phase 1 Complete</h4>
+      <p>
+        Our flagship environmental monitoring system has successfully completed its first development 
+        phase. Initial tests show 95% accuracy in air quality prediction and real-time hazard detection.
+      </p>
+      <a href="#" style="color:#b56eff; font-size:14px; font-weight:600; text-decoration:none; margin-top:15px; display:inline-block;">Read More →</a>
+    </div>
+
+    <div class="card">
+      <span style="font-size:12px; opacity:0.7;">Jan 5, 2026</span>
+      <h4 style="margin-top:10px;">🤝 Strategic Partnerships Announced</h4>
+      <p>
+        We're building strong collaborations with leading research institutions and industry partners 
+        to accelerate innovation and bring our technologies to market faster.
+      </p>
+      <a href="#" style="color:#b56eff; font-size:14px; font-weight:600; text-decoration:none; margin-top:15px; display:inline-block;">Read More →</a>
+    </div>
+  </div>
+</section>
+
+<section style="background:rgba(18,26,51,0.2);">
+  <h3>Frequently Asked Questions</h3>
+  <div style="max-width:900px; margin:auto;">
+    <div style="background:rgba(18,26,51,0.4); padding:25px; border-radius:12px; border:1px solid rgba(181,110,255,0.2); margin-bottom:20px; backdrop-filter:blur(20px);">
+      <h4 style="color:#b56eff; margin-bottom:12px; font-size:18px;">What does The Forge X do?</h4>
+      <p style="opacity:0.9; line-height:1.8;">
+        The Forge X develops cutting-edge technologies in AI, environmental monitoring, and sustainable energy. 
+        We transform innovative ideas into practical solutions that address real-world challenges.
+      </p>
+    </div>
+
+    <div style="background:rgba(18,26,51,0.4); padding:25px; border-radius:12px; border:1px solid rgba(181,110,255,0.2); margin-bottom:20px; backdrop-filter:blur(20px);">
+      <h4 style="color:#b56eff; margin-bottom:12px; font-size:18px;">How can I get involved or collaborate?</h4>
+      <p style="opacity:0.9; line-height:1.8;">
+        We're always looking for talented individuals, strategic partners, and innovative collaborators. 
+        Fill out our application form in the Join Us section, or reach out directly via email or WhatsApp.
+      </p>
+    </div>
+
+    <div style="background:rgba(18,26,51,0.4); padding:25px; border-radius:12px; border:1px solid rgba(181,110,255,0.2); margin-bottom:20px; backdrop-filter:blur(20px);">
+      <h4 style="color:#b56eff; margin-bottom:12px; font-size:18px;">Are your technologies available for commercial use?</h4>
+      <p style="opacity:0.9; line-height:1.8;">
+        We're currently in the research and prototype development phase. Pilot programs and early partnerships 
+        will be available in Q3 2026. Contact us to express interest and stay updated on launch timelines.
+      </p>
+    </div>
+
+    <div style="background:rgba(18,26,51,0.4); padding:25px; border-radius:12px; border:1px solid rgba(181,110,255,0.2); margin-bottom:20px; backdrop-filter:blur(20px);">
+      <h4 style="color:#b56eff; margin-bottom:12px; font-size:18px;">Do you offer internships or student opportunities?</h4>
+      <p style="opacity:0.9; line-height:1.8;">
+        Yes! We actively seek passionate students and recent graduates. Check our events for upcoming workshops, 
+        and apply through our Join Us form mentioning your interest in internships or learning opportunities.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section style="background:rgba(18,26,51,0.3);">
+  <h3>Our Impact & Achievements</h3>
+  <div class="grid">
+    <div class="card">
+      <span>🏆 Innovation</span>
+      <h4>Cutting-Edge Research</h4>
+      <p>
+        Leading research in AI, environmental tech, and sustainable energy. Our team publishes 
+        findings and collaborates with academic institutions to push the boundaries of what's possible.
+      </p>
+    </div>
+
+    <div class="card">
+      <span>🌟 Excellence</span>
+      <h4>Award-Worthy Solutions</h4>
+      <p>
+        Recognized for developing technologies that address real-world problems. Our inventions 
+        have the potential to impact millions of lives globally through sustainable innovation.
+      </p>
+    </div>
+
+    <div class="card">
+      <span>🚀 Growth</span>
+      <h4>Rapid Scaling</h4>
+      <p>
+        From concept to prototype in record time. We're building a scalable infrastructure that 
+        will allow us to expand operations and bring transformative technologies to market faster.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section style="background:rgba(18,26,51,0.15);">
+  <h3>Latest News & Updates</h3>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
+    <div class="card">
+      <span style="font-size:12px; opacity:0.7;">Jan 10, 2026</span>
+      <h4 style="margin-top:10px;">🎉 The Forge X Officially Launches</h4>
+      <p>
+        We're thrilled to announce the official launch of The Forge X! After months of planning 
+        and preparation, our team is ready to revolutionize the tech industry with innovative solutions.
+      </p>
+      <a href="#" style="color:#b56eff; font-size:14px; font-weight:600; text-decoration:none; margin-top:15px; display:inline-block;">Read More →</a>
+    </div>
+
+    <div class="card">
+      <span style="font-size:12px; opacity:0.7;">Jan 8, 2026</span>
+      <h4 style="margin-top:10px;">💡 Smart Environmental Core - Phase 1 Complete</h4>
+      <p>
+        Our flagship environmental monitoring system has successfully completed its first development 
+        phase. Initial tests show 95% accuracy in air quality prediction and real-time hazard detection.
+      </p>
+      <a href="#" style="color:#b56eff; font-size:14px; font-weight:600; text-decoration:none; margin-top:15px; display:inline-block;">Read More →</a>
+    </div>
+
+    <div class="card">
+      <span style="font-size:12px; opacity:0.7;">Jan 5, 2026</span>
+      <h4 style="margin-top:10px;">🤝 Strategic Partnerships Announced</h4>
+      <p>
+        We're building strong collaborations with leading research institutions and industry partners 
+        to accelerate innovation and bring our technologies to market faster.
+      </p>
+      <a href="#" style="color:#b56eff; font-size:14px; font-weight:600; text-decoration:none; margin-top:15px; display:inline-block;">Read More →</a>
+    </div>
+  </div>
+</section>
+
+<section style="background:rgba(18,26,51,0.2);">
+  <h3>Frequently Asked Questions</h3>
+  <div style="max-width:900px; margin:auto;">
+    <div style="background:rgba(18,26,51,0.4); padding:25px; border-radius:12px; border:1px solid rgba(181,110,255,0.2); margin-bottom:20px; backdrop-filter:blur(20px);">
+      <h4 style="color:#b56eff; margin-bottom:12px; font-size:18px;">What does The Forge X do?</h4>
+      <p style="opacity:0.9; line-height:1.8;">
+        The Forge X develops cutting-edge technologies in AI, environmental monitoring, and sustainable energy. 
+        We transform innovative ideas into practical solutions that address real-world challenges.
+      </p>
+    </div>
+
+    <div style="background:rgba(18,26,51,0.4); padding:25px; border-radius:12px; border:1px solid rgba(181,110,255,0.2); margin-bottom:20px; backdrop-filter:blur(20px);">
+      <h4 style="color:#b56eff; margin-bottom:12px; font-size:18px;">How can I get involved or collaborate?</h4>
+      <p style="opacity:0.9; line-height:1.8;">
+        We're always looking for talented individuals, strategic partners, and innovative collaborators. 
+        Fill out our application form in the Join Us section, or reach out directly via email or WhatsApp.
+      </p>
+    </div>
+
+    <div style="background:rgba(18,26,51,0.4); padding:25px; border-radius:12px; border:1px solid rgba(181,110,255,0.2); margin-bottom:20px; backdrop-filter:blur(20px);">
+      <h4 style="color:#b56eff; margin-bottom:12px; font-size:18px;">Are your technologies available for commercial use?</h4>
+      <p style="opacity:0.9; line-height:1.8;">
+        We're currently in the research and prototype development phase. Pilot programs and early partnerships 
+        will be available in Q3 2026. Contact us to express interest and stay updated on launch timelines.
+      </p>
+    </div>
+
+    <div style="background:rgba(18,26,51,0.4); padding:25px; border-radius:12px; border:1px solid rgba(181,110,255,0.2); margin-bottom:20px; backdrop-filter:blur(20px);">
+      <h4 style="color:#b56eff; margin-bottom:12px; font-size:18px;">Do you offer internships or student opportunities?</h4>
+      <p style="opacity:0.9; line-height:1.8;">
+        Yes! We actively seek passionate students and recent graduates. Check our events for upcoming workshops, 
+        and apply through our Join Us form mentioning your interest in internships or learning opportunities.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="vision">
+  <h3>Our Vision</h3>
+  <p style="text-align:justify; max-width:900px; margin:0 auto 50px auto; font-size:18px;">
+    Innovation is forged through structure, discipline, and vision.
+    THE FORGE X exists to shape the future by aligning research, markets,
+    and finance into one powerful ecosystem. We believe that the greatest challenges 
+    of our time—climate change, energy crisis, technological inequality—can be solved 
+    through bold innovation and collaborative excellence.
+  </p>
+  
+  <div style="max-width:900px; margin:0 auto;">
+    <h4 style="color:#b56eff; font-size:24px; margin-bottom:30px; text-align:center;">Our Roadmap to the Future</h4>
+    
+    <div style="display:grid; gap:25px;">
+      <div style="display:flex; gap:20px; align-items:start;">
+        <div style="min-width:120px; text-align:center;">
+          <span style="color:#b56eff; font-weight:700; font-size:18px;">2026 Q1-Q2</span>
+        </div>
+        <div style="flex:1; padding:20px; background:rgba(18,26,51,0.4); border-radius:12px; border-left:3px solid #b56eff;">
+          <h4 style="color:#b56eff; margin-bottom:8px;">Foundation & Research</h4>
+          <p style="opacity:0.9; font-size:15px;">Complete core R&D, finalize prototypes, build strategic partnerships, and establish our innovation lab.</p>
+        </div>
+      </div>
+      
+      <div style="display:flex; gap:20px; align-items:start;">
+        <div style="min-width:120px; text-align:center;">
+          <span style="color:#ff6eb4; font-weight:700; font-size:18px;">2026 Q3-Q4</span>
+        </div>
+        <div style="flex:1; padding:20px; background:rgba(18,26,51,0.4); border-radius:12px; border-left:3px solid #ff6eb4;">
+          <h4 style="color:#ff6eb4; margin-bottom:8px;">Market Entry</h4>
+          <p style="opacity:0.9; font-size:15px;">Launch pilot programs, secure initial clients, expand team, and begin commercial operations.</p>
+        </div>
+      </div>
+      
+      <div style="display:flex; gap:20px; align-items:start;">
+        <div style="min-width:120px; text-align:center;">
+          <span style="color:#b56eff; font-weight:700; font-size:18px;">2027+</span>
+        </div>
+        <div style="flex:1; padding:20px; background:rgba(18,26,51,0.4); border-radius:12px; border-left:3px solid #b56eff;">
+          <h4 style="color:#b56eff; margin-bottom:8px;">Global Scale</h4>
+          <p style="opacity:0.9; font-size:15px;">International expansion, new product lines, strategic acquisitions, and establishing The Forge X as a global innovation leader.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:rgba(18,26,51,0.15);">
+  <h3>Partners & Collaborators</h3>
+  <p style="text-align:center; max-width:800px; margin:0 auto 40px auto; opacity:0.9;">
+    Building the future requires collaboration. We're proud to work with leading institutions, 
+    research centers, and technology partners who share our vision for innovation.
+  </p>
+  <div style="max-width:1000px; margin:auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px; text-align:center;">
+    <div style="padding:30px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:50px; margin-bottom:15px;">🏫</div>
+      <h4 style="color:#b56eff; margin-bottom:8px;">Research Institutions</h4>
+      <p style="font-size:14px; opacity:0.8;">Collaborating with universities for cutting-edge research</p>
+    </div>
+    <div style="padding:30px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:50px; margin-bottom:15px;">🏢</div>
+      <h4 style="color:#b56eff; margin-bottom:8px;">Industry Leaders</h4>
+      <p style="font-size:14px; opacity:0.8;">Strategic partnerships with tech companies</p>
+    </div>
+    <div style="padding:30px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:50px; margin-bottom:15px;">💼</div>
+      <h4 style="color:#b56eff; margin-bottom:8px;">Investors</h4>
+      <p style="font-size:14px; opacity:0.8;">Backed by visionary angel investors</p>
+    </div>
+    <div style="padding:30px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:50px; margin-bottom:15px;">🌍</div>
+      <h4 style="color:#b56eff; margin-bottom:8px;">Global Network</h4>
+      <p style="font-size:14px; opacity:0.8;">Connected to innovators worldwide</p>
+    </div>
+  </div>
+</section>
+
+<section id="founders">
+  <h3>Meet Our Founders</h3>
+  <p style="text-align:justify; max-width:800px; margin:0 auto 40px auto; opacity:0.9;">
+    Four visionary minds united by a passion for innovation and a commitment to creating 
+    technologies that matter. Together, we bring diverse expertise in engineering, business, 
+    and technology to forge the future.
+  </p>
+  <div class="grid">
+    
+    <div class="founder-card">
+      <div class="founder-img">👤</div>
+      <h4>Pranjal</h4>
+      <p style="color:#b56eff; font-weight:600; margin-bottom:8px;"></p>
+      <p></p>
+    </div>
+
+    <div class="founder-card">
+      <div class="founder-img">👤</div>
+      <h4>Dhruv</h4>
+      <p style="color:#b56eff; font-weight:600; margin-bottom:8px;"></p>
+      <p></p>
+    </div>
+
+    <div class="founder-card">
+      <div class="founder-img">👤</div>
+      <h4>Daksh</h4>
+      <p style="color:#b56eff; font-weight:600; margin-bottom:8px;"></p>
+      <p></p>
+    </div>
+
+    <div class="founder-card">
+      <div class="founder-img">👤</div>
+      <h4>Aditya</h4>
+      <p style="color:#b56eff; font-weight:600; margin-bottom:8px;"></p>
+      <p></p>
+    </div>
+
+  </div>
+</section>
+
+<section style="background:rgba(18,26,51,0.15);">
+  <h3>Partners & Collaborators</h3>
+  <p style="text-align:center; max-width:800px; margin:0 auto 40px auto; opacity:0.9;">
+    Building the future requires collaboration. We're proud to work with leading institutions, 
+    research centers, and technology partners who share our vision for innovation.
+  </p>
+  <div style="max-width:1000px; margin:auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px; text-align:center;">
+    <div style="padding:30px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:50px; margin-bottom:15px;">🏫</div>
+      <h4 style="color:#b56eff; margin-bottom:8px;">Research Institutions</h4>
+      <p style="font-size:14px; opacity:0.8;">Collaborating with universities for cutting-edge research</p>
+    </div>
+    <div style="padding:30px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:50px; margin-bottom:15px;">🏢</div>
+      <h4 style="color:#b56eff; margin-bottom:8px;">Industry Leaders</h4>
+      <p style="font-size:14px; opacity:0.8;">Strategic partnerships with tech companies</p>
+    </div>
+    <div style="padding:30px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:50px; margin-bottom:15px;">💼</div>
+      <h4 style="color:#b56eff; margin-bottom:8px;">Investors</h4>
+      <p style="font-size:14px; opacity:0.8;">Backed by visionary angel investors</p>
+    </div>
+    <div style="padding:30px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:50px; margin-bottom:15px;">🌍</div>
+      <h4 style="color:#b56eff; margin-bottom:8px;">Global Network</h4>
+      <p style="font-size:14px; opacity:0.8;">Connected to innovators worldwide</p>
+    </div>
+  </div>
+</section>
+
+<section id="join">
+  <h3>Join The Forge X</h3>
+  <p style="text-align:justify; max-width:800px; margin:0 auto 30px auto; font-size:18px;">
+    Ready to be part of something extraordinary? We're looking for talented, passionate individuals 
+    who want to make a real impact. Join our team of innovators, engineers, and visionaries shaping 
+    the future of technology.
+  </p>
+  
+  <div style="max-width:900px; margin:40px auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:25px;">
+    <div style="text-align:center; padding:25px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:40px; margin-bottom:15px;">💡</div>
+      <h4 style="color:#b56eff; margin-bottom:10px;">Innovation First</h4>
+      <p style="font-size:14px; opacity:0.9;">Work on cutting-edge projects that push technological boundaries</p>
+    </div>
+    <div style="text-align:center; padding:25px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:40px; margin-bottom:15px;">🚀</div>
+      <h4 style="color:#b56eff; margin-bottom:10px;">Fast Growth</h4>
+      <p style="font-size:14px; opacity:0.9;">Rapid learning and career advancement opportunities</p>
+    </div>
+    <div style="text-align:center; padding:25px; background:rgba(18,26,51,0.3); border-radius:12px; border:1px solid rgba(181,110,255,0.2);">
+      <div style="font-size:40px; margin-bottom:15px;">🤝</div>
+      <h4 style="color:#b56eff; margin-bottom:10px;">Collaborative Culture</h4>
+      <p style="font-size:14px; opacity:0.9;">Work alongside brilliant minds in a supportive environment</p>
+    </div>
+  </div>
+  
+  <div class="application-form">
+    <form id="applicationForm" action="https://formsubmit.co/theforgex2026@gmail.com" method="POST">
+      <!-- FormSubmit Configuration -->
+      <input type="hidden" name="_subject" value="New Application for The Forge X!">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      
+      <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="Name" required placeholder="Enter your full name">
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="Email" required placeholder="your.email@gmail.com">
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Contact Number *</label>
+        <input type="tel" id="phone" name="Phone" required placeholder="+91 XXXXXXXXXX">
+      </div>
+      
+      <div class="form-group">
+        <label for="reason">Why do you want to join The Forge X? *</label>
+        <textarea id="reason" name="Reason" required placeholder="Tell us about your passion, skills, and what you hope to achieve with us..."></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">Submit Application</button>
+      
+      <div class="success-message" id="successMessage">
+        ✓ Application submitted successfully! We'll get back to you soon.
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  // Active navigation link on scroll
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('nav a');
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= (sectionTop - 200)) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').substring(1) === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+  
+  // Smooth scroll with animation for navigation links
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetSection = document.querySelector(targetId);
+      
+      if (targetSection) {
+        targetSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+</script>
+
+<script>
+  // 3D card tilt effect
+  document.querySelectorAll('.card, .founder-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) / 10;
+      const rotateY = (centerX - x) / 10;
+      
+      card.style.transform = `translateY(-15px) scale(1.05) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+  
+  // Generate floating particles
+  function createParticle() {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.bottom = '-10px';
+    particle.style.setProperty('--x-drift', (Math.random() - 0.5) * 200 + 'px');
+    particle.style.animationDelay = Math.random() * 3 + 's';
+    particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+    
+    const hue = Math.random() > 0.5 ? 280 : 330;
+    particle.style.background = `hsl(${hue}, 100%, 70%)`;
+    particle.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 70%)`;
+    
+    document.querySelector('.hero').appendChild(particle);
+    
+    setTimeout(() => {
+      particle.remove();
+    }, 6000);
+  }
+  
+  setInterval(createParticle, 300);
+</script>
+
+<section style="background:rgba(18,26,51,0.2);">
+  <div style="text-align:center; max-width:800px; margin:0 auto;">
+    <h3 style="margin-bottom:20px; position:static; left:auto; transform:none; display:block;">Stay Updated</h3>
+    <p style="margin:0 auto 35px auto; opacity:0.9; text-align:center; line-height:1.8;">
+      Subscribe to our newsletter and be the first to know about product launches, events, 
+      job openings, and the latest innovations from The Forge X.
+    </p>
+    <div style="max-width:500px; margin:0 auto;">
+      <form id="newsletterForm" action="https://formsubmit.co/theforgex2026@gmail.com" method="POST" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+        <input type="hidden" name="_subject" value="New Newsletter Subscription - The Forge X">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="#newsletter-success">
+        <input type="hidden" name="Subscription Type" value="Newsletter">
+        
+        <input type="email" name="Email" placeholder="Enter your email address" required 
+          style="flex:1; min-width:250px; padding:15px 20px; background:rgba(10,14,26,0.6); border:1px solid rgba(181,110,255,0.3); border-radius:50px; color:#eaeaff; font-size:15px; outline:none; transition:all 0.3s;" 
+          onfocus="this.style.borderColor='rgba(181,110,255,0.7)'; this.style.boxShadow='0 0 20px rgba(181,110,255,0.3)';" 
+          onblur="this.style.borderColor='rgba(181,110,255,0.3)'; this.style.boxShadow='none';">
+        <button type="submit" 
+          style="padding:15px 35px; background:linear-gradient(135deg, #b56eff, #ff6eb4); color:#fff; border:none; border-radius:50px; font-weight:700; cursor:pointer; transition:all 0.3s; box-shadow:0 4px 20px rgba(181,110,255,0.4);" 
+          onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 30px rgba(181,110,255,0.6)';" 
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(181,110,255,0.4)';">
+          Subscribe
+        </button>
+      </form>
+      <div id="newsletter-success" style="display:none; margin-top:20px; padding:15px; background:rgba(181,110,255,0.2); border:1px solid rgba(181,110,255,0.5); border-radius:12px; color:#b56eff;">
+        ✓ Successfully subscribed! You'll receive our latest updates.
+      </div>
+      <p style="font-size:12px; opacity:0.7; margin-top:15px; text-align:center;">📧 We respect your privacy. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div style="max-width:800px; margin:0 auto; text-align:center;">
+    <h3 style="margin-bottom:20px; position:static; left:auto; transform:none; display:block;">Get In Touch</h3>
+    <p style="text-align:center; margin:0 auto 40px auto; line-height:1.8;">
+      Have a question? Want to collaborate? Interested in our technologies? 
+      We'd love to hear from you. Reach out through any of the channels below.
+    </p>
+    <div style="max-width:600px; margin:0 auto;">
+      <div style="margin-bottom:25px;">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968534.png" alt="Gmail" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;"> 
+        <a href="mailto:theforgex2026@gmail.com" style="color:#eaeaff; text-decoration:none; font-size:16px;">theforgex2026@gmail.com</a>
+      </div>
+      <div style="margin-bottom:25px;">
+        🌐 <span style="font-size:16px;">www.theforgex.com</span>
+      </div>
+      <div style="margin-bottom:25px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;"> 
+        <a href="https://wa.me/919560185911" target="_blank" style="color:#eaeaff; text-decoration:none; font-size:16px;">+91 9560185911</a>
+      </div>
+      <div style="margin-bottom:40px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;"> 
+        <a href="https://instagram.com/theforgex" target="_blank" style="color:#eaeaff; text-decoration:none; font-size:16px;">@theforgex</a>
+      </div>
+      
+      <div style="margin-top:50px; padding-top:35px; border-top:1px solid rgba(181,110,255,0.2);">
+        <p style="margin-bottom:25px; opacity:0.8; font-size:15px;">Follow Our Journey</p>
+        <div style="display:flex; justify-content:center; gap:30px; font-size:32px;">
+          <a href="#" style="color:#eaeaff; transition:all 0.3s;" onmouseover="this.style.color='#b56eff'; this.style.transform='scale(1.2)';" onmouseout="this.style.color='#eaeaff'; this.style.transform='scale(1)';" title="LinkedIn">💼</a>
+          <a href="#" style="color:#eaeaff; transition:all 0.3s;" onmouseover="this.style.color='#b56eff'; this.style.transform='scale(1.2)';" onmouseout="this.style.color='#eaeaff'; this.style.transform='scale(1)';" title="Twitter">🐦</a>
+          <a href="#" style="color:#eaeaff; transition:all 0.3s;" onmouseover="this.style.color='#b56eff'; this.style.transform='scale(1.2)';" onmouseout="this.style.color='#eaeaff'; this.style.transform='scale(1)';" title="Instagram">📸</a>
+          <a href="#" style="color:#eaeaff; transition:all 0.3s;" onmouseover="this.style.color='#b56eff'; this.style.transform='scale(1.2)';" onmouseout="this.style.color='#eaeaff'; this.style.transform='scale(1)';" title="YouTube">📺</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="max-width:1200px; margin:auto;">
+    <p style="font-size:16px; margin-bottom:15px; opacity:1;">
+      <strong style="color:#b56eff; font-size:18px;">THE FORGE X</strong><br>
+      <span style="font-size:13px;">Engineering Tomorrow, Today</span>
+    </p>
+    <p style="margin-bottom:10px; font-size:13px;">
+      Innovating in AI • Environmental Tech • Sustainable Energy • Smart Systems
+    </p>
+    <p style="font-size:12px; opacity:0.7; margin-top:20px;">
+      ©️ 2026 THE FORGE X. All rights reserved. | Building the Future of Technology
+    </p>
+  </div>
+</footer>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+<script>
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    setTimeout(() => {
+      loader.classList.add("hide");
+    }, 1200); // smooth cinematic delay
+  });
+</script>
+
+</body>
+</html>
